@@ -58,7 +58,7 @@ namespace DotNetIdeas
             Console.WriteLine("Elapsed milliseconds: {0}", elapsedMs);
         }
 
-        #region Can use async/await for workflow encapsulation
+        #region Can use async/await in conjunction with events
 
         public class Workflow
         {
@@ -136,6 +136,11 @@ namespace DotNetIdeas
             }
         }
 
+        /// <summary>
+        /// Inspired by async/await video outlining a pattern for WPF use case
+        /// http://channel9.msdn.com/Series/Three-Essential-Tips-for-Async/Lucian03-TipsForAsyncThreadsAndDatabinding
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task t3_async_can_await_events()
         {
@@ -150,6 +155,7 @@ namespace DotNetIdeas
                     w.Approve();
                 });
 
+            // Business logic separated from workflow capabilities
             Console.WriteLine("Awaiting reviews");
             await Task.WhenAll(
                 w.WhenLegalReviewed(),
